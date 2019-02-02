@@ -1,0 +1,12 @@
+{
+  "name": "hahamut-bot-example",
+  "license": "MIT",
+  "dependencies": {
+    "hahamut.js": "^1.0.2",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.19",
+    "@types/request": "^2.48.1"
+  }
+}
