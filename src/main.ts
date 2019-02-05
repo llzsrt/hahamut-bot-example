@@ -1,7 +1,13 @@
 import { HahamutBot, HahamutMessage, Message } from 'hahamut.js';
 import { environment } from './environment';
 
-const bot: HahamutBot = new HahamutBot(environment.keys, environment.sslOptions);
+const bot: HahamutBot = new HahamutBot(environment.keys, environment.sslOptions, "/yourprefix");
+
+bot.addCommand("say", (message, ...args: any[]) => {
+    // 增加機器人指令
+    let tmp = args.join(" ");
+    message.say(tmp);
+}); 
 
 bot.once("ready", () => {
     console.log("ready");
@@ -29,4 +35,4 @@ bot.on("message", (message: HahamutMessage) => {
     }
 });
 
-bot.boot("0.0.0.0", 443);
+bot.boot();
