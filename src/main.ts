@@ -1,7 +1,23 @@
-import { HahamutBot, HahamutMessage, Message } from 'hahamut.js';
+import { HahamutBot, HahamutMessage, Message, MessageFilter, FilterMethod } from 'hahamut.js';
 import { environment } from './environment';
 
 const bot: HahamutBot = new HahamutBot(environment.keys, environment.sslOptions, "/yourprefix");
+
+const exampleMessageFilter = new MessageFilter({
+    // 設置一個訊息過濾器
+    // 若目標訊息中含有sticker、貼圖或ㄊㄓ，則回傳一張通知娘貼圖
+    method: FilterMethod.Find,
+    content: ["sticker", "貼圖", "ㄊㄓ"],
+    action: (message: HahamutMessage) => {
+        // 傳送貼圖
+        let tempStickerMessage: Message = {
+            type: "sticker",
+            sticker_group: "75",
+            sticker_id: "01"
+        }
+        bot.sendMessage(message.senderId, tempStickerMessage);
+    }
+});
 
 bot.addCommand("", (message: HahamutMessage) => {
     // 設定機器人預設指令
@@ -18,6 +34,11 @@ bot.once("ready", () => {
 });
 
 bot.on("message", (message: HahamutMessage) => {
+    // 當機器人收到訊息時
+
+    exampleMessageFilter.filter(message);
+    // 使用第6行設置的exampleMessageFilter檢查訊息
+
     if(message.text == "test") {
         // 傳送文字訊息
         let tempTextMessage: Message = {
@@ -25,14 +46,6 @@ bot.on("message", (message: HahamutMessage) => {
             text: "(¯―¯٥)"
         }
         bot.sendMessage(message.senderId, tempTextMessage);
-    } else if (message.text == "sticker") {
-        // 傳送貼圖
-        let tempStickerMessage: Message = {
-            type: "sticker",
-            sticker_group: "75",
-            sticker_id: "01"
-        }
-        bot.sendMessage(message.senderId, tempStickerMessage);
     } else if(message.text == "Hi") {
         // 回覆文字訊息
         message.say("Hello");
