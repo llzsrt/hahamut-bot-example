@@ -3,7 +3,11 @@ import { environment } from './environment';
 
 const bot: HahamutBot = new HahamutBot(environment.keys, environment.sslOptions, "/yourprefix");
 
-bot.addCommand("say", (message, ...args: any[]) => {
+bot.addCommand("", (message: HahamutMessage) => {
+    // 設定機器人預設指令
+    message.say("Hello, this is default command!");
+});
+bot.addCommand("say", (message: HahamutMessage, ...args: any[]) => {
     // 增加機器人指令
     let tmp = args.join(" ");
     message.say(tmp);
