@@ -4,7 +4,7 @@ import { environment } from './environment';
 const bot: HahamutBot = new HahamutBot(environment.keys, environment.sslOptions, "/yourprefix");
 
 const exampleMessageTrigger = new MessageTrigger({
-    // 設置一個訊息過濾器
+    // 設置一個MessageTrigger
     // 若目標訊息中含有sticker、貼圖或ㄊㄓ，則回傳一張通知娘貼圖
     operator: MessageTriggerOperator.Contains,
     content: ["sticker", "貼圖", "ㄊㄓ"],
