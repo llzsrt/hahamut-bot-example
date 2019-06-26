@@ -140,8 +140,8 @@ getpass@^0.1.1:
     assert-plus "^1.0.0"
 
 hahamut.js@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/hahamut.js/-/hahamut.js-1.1.4.tgz#a0dae93d4c445b1c3f4962bac0cc85426d8b306b"
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/hahamut.js/-/hahamut.js-1.2.1.tgz#ebeb8851faf115a2126c76ad35fab6e121633063"
   dependencies:
     request "^2.88.0"
 

@@ -1,43 +1,43 @@
-import { HahamutBot, HahamutMessage, Message, MessageFilter, FilterMethod } from 'hahamut.js';
+import { HahamutBot, HahamutMessage, Message, MessageTrigger, MessageTriggerOperator } from 'hahamut.js';
 import { environment } from './environment';
 
 const bot: HahamutBot = new HahamutBot(environment.keys, environment.sslOptions, "/yourprefix");
 
-const exampleMessageFilter = new MessageFilter({
+const exampleMessageTrigger = new MessageTrigger({
     // 設置一個訊息過濾器
     // 若目標訊息中含有sticker、貼圖或ㄊㄓ，則回傳一張通知娘貼圖
-    method: FilterMethod.Find,
+    operator: MessageTriggerOperator.Contains,
     content: ["sticker", "貼圖", "ㄊㄓ"],
-    action: (message: HahamutMessage) => {
+    action: async (message: HahamutMessage) => {
         // 傳送貼圖
         let tempStickerMessage: Message = {
             type: "sticker",
             sticker_group: "75",
             sticker_id: "01"
         }
-        bot.sendMessage(message.senderId, tempStickerMessage);
+        await bot.sendMessage(message.senderId, tempStickerMessage);
     }
 });
 
-bot.addCommand("", (message: HahamutMessage) => {
+bot.addCommand("", async (message: HahamutMessage) => {
     // 設定機器人預設指令
-    message.say("Hello, this is default command!");
+    await message.say("Hello, this is default command!");
 });
-bot.addCommand("say", (message: HahamutMessage, ...args: any[]) => {
+bot.addCommand("say", async (message: HahamutMessage, ...args: any[]) => {
     // 增加機器人指令
     let tmp = args.join(" ");
-    message.say(tmp);
+    await message.say(tmp);
 }); 
 
 bot.once("ready", () => {
     console.log("ready");
 });
 
-bot.on("message", (message: HahamutMessage) => {
+bot.on("message", async (message: HahamutMessage) => {
     // 當機器人收到訊息時
 
-    exampleMessageFilter.filter(message);
-    // 使用第6行設置的exampleMessageFilter檢查訊息
+    await exampleMessageTrigger.checkAndRun(message);
+    // 使用第6行設置的exampleMessageTrigger檢查訊息
 
     if(message.text == "test") {
         // 傳送文字訊息
@@ -45,11 +45,11 @@ bot.on("message", (message: HahamutMessage) => {
             type: "text",
             text: "(¯―¯٥)"
         }
-        bot.sendMessage(message.senderId, tempTextMessage);
+        await bot.sendMessage(message.senderId, tempTextMessage);
     } else if(message.text == "Hi") {
         // 回覆文字訊息
-        message.say("Hello");
+        await message.say("Hello");
     }
 });
 
-bot.boot();
+bot.boot("localhost", 1337);
