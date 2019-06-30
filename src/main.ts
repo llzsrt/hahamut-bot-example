@@ -4,16 +4,16 @@ import { environment } from './environment';
 // const bot: HahamutBot = new HahamutBot(environment.config, environment.sslOptions, '/yourprefix');
 
 // 需使用ssl才能正常接收哈哈姆特webhook事件
-// 但這邊為方便在本機測試，不傳入ssl options也不開啟驗證signature
+// 為方便在本機測試，不傳入ssl options也不開啟驗證signature
 const bot: HahamutBot = new HahamutBot(environment.configs, null, '/yourprefix', false);
 
 // 增加機器人指令
 bot.addCommand('say', async (message: ReceivedMessage, ...args: any[]) => {
     let tmp = args.join(' ');
-    await message.replyText(tmp);
+    message.replyText(tmp);
 }); 
 
-bot.once('ready', async () => {
+bot.once('ready', () => {
     console.log('Ready');
 });
 
@@ -34,7 +34,7 @@ bot.on('message', async (message: ReceivedMessage) => {
             sticker_id: '01'
         }
         // 回覆貼圖訊息
-        await message.replySticker(tempStickerMessage);
+        message.replySticker(tempStickerMessage);
     }
 });
 
