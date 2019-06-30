@@ -3,7 +3,7 @@
   "main": "dist/main.js",
   "license": "MIT",
   "dependencies": {
-    "hahamut.js": "1.3.1",
+    "hahamut.js": "1.3.3",
     "request": "^2.88.0"
   },
   "devDependencies": {
@@ -13,7 +13,8 @@
     "typescript": "^3.5.2"
   },
   "scripts": {
-    "start": "ts-node src/main.ts",
-    "build:": "tsc"
+    "start": "node dist/main.js",
+    "serve": "ts-node src/main.ts",
+    "build": "tsc"
   }
 }

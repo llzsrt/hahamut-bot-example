@@ -38,4 +38,5 @@ bot.on('message', async (message: ReceivedMessage) => {
     }
 });
 
-bot.boot(1337);
+const PORT = process.env.PORT || 1337;
+bot.boot(PORT);
