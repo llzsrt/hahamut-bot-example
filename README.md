@@ -18,7 +18,6 @@
     }
 };
  ```
- - 將 main.ts 中 ``bot.boot("host", port)`` 的 host 與 port 改成與server環境相符的值
  - ``$ tsc``
  - 把 dist 目錄裡編譯好的檔案和ssl憑證一起丟到server上
  - ``$ npm install``

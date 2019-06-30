@@ -38,4 +38,4 @@ bot.on('message', async (message: ReceivedMessage) => {
     }
 });
 
-bot.boot('0.0.0.0', 1337);
+bot.boot(1337);
