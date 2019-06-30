@@ -3,7 +3,7 @@
   "main": "dist/main.js",
   "license": "MIT",
   "dependencies": {
-    "hahamut.js": "1.3.4",
+    "hahamut.js": "1.3.5",
     "request": "^2.88.0"
   },
   "devDependencies": {

@@ -3,6 +3,8 @@
 export const environment = {
     configs: {
         botId: 'your botId',
+        prefix: '/yourprefix',
+        isCheckSignature: false,
         accessToken: "your accessToken",
         appSecret: "your appSecret"
     },
