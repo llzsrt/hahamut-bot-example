@@ -7,6 +7,11 @@
   },
   "devDependencies": {
     "@types/node": "^10.12.19",
-    "@types/request": "^2.48.1"
+    "@types/request": "^2.48.1",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.2"
+  },
+  "scripts": {
+    "start": "ts-node src/main.ts"
   }
 }

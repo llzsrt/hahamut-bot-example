@@ -1,13 +1,14 @@
-import fs from 'fs';
+import fs from 'fs'
 
 export const environment = {
-    keys: {
-        accessToken: "Your AccessToken",
-        appSecret: "Your AppSecret"
+    config: {
+        botId: 'your botId',
+        accessToken: "your accessToken",
+        appSecret: "your appSecret"
     },
-    sslOptions: {
-        key: fs.readFileSync('./private.key'),
-        ca: [fs.readFileSync('./ca_bundle.crt')],
-        cert: fs.readFileSync('./certificate.crt')
-    }
+    // sslOptions: {
+    //     key: fs.readFileSync('./private.key'),
+    //     ca: [fs.readFileSync('./ca_bundle.crt')],
+    //     cert: fs.readFileSync('./certificate.crt')
+    // }
 };
