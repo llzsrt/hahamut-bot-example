@@ -1,4 +1,4 @@
-import { HahamutBot, ReceivedMessage, TextMessage, StickerMessage } from 'hahamut.js';
+import { HahamutBot, ReceivedMessage, TextMessage, StickerMessage, MessageTrigger, TriggerOperator } from 'hahamut.js';
 import { environment } from './environment';
 
 // const bot: HahamutBot = new HahamutBot(environment.config, environment.sslOptions, '/yourprefix');
@@ -7,27 +7,39 @@ import { environment } from './environment';
 // 為方便在本機測試，不傳入ssl options也不開啟驗證signature
 const bot: HahamutBot = new HahamutBot(environment.configs, null, '/yourprefix', false);
 
-// 增加機器人指令
+// 增加機器人指令 say
+// e.g. 使用者輸入 "/yourprefix say Hi! I'm Bot"，機器人將會回應文字訊息 "Hi! I'm Bot"
 bot.addCommand('say', async (message: ReceivedMessage, ...args: any[]) => {
-    let tmp = args.join(' ');
-    message.replyText(tmp);
-}); 
+    try {
+        const temp = args.join(' ');
+        const bahaResult = await message.replyText(temp);
 
-bot.once('ready', () => {
-    console.log('Ready');
+        console.log(`Send message "${temp}" to ${message.senderId}.`);
+        console.log(`API return: ${bahaResult}`);
+    } catch (error) {
+        console.error(error);
+    }
+});
+
+// 設置一個MessageTrigger
+const exampleMessageTrigger = new MessageTrigger({
+    // 若目標訊息中含有sticker、貼圖或ㄊㄓ，則回傳一張通知娘貼圖
+    operator: TriggerOperator.Contains,
+    content: ["sticker", "貼圖", "ㄊㄓ"],
+    action: (message: ReceivedMessage) => {
+        // 傳送貼圖
+        return bot.sendMessage(message.senderId, {
+            type: "sticker",
+            sticker_group: "75",
+            sticker_id: "01"
+        });
+    }
 });
 
 // 當機器人收到訊息時
-bot.on('message', async (message: ReceivedMessage) => {
+bot.on('message', (message: ReceivedMessage) => {
 
-    if(message.text === 'test') {
-        const tempTextMessage: TextMessage = {
-            type: 'text',
-            text: '(¯―¯٥)'
-        }
-        // 傳送文字訊息
-        bot.sendMessage(message.senderId, tempTextMessage);
-    } else if(message.text === 'Hi') {
+    if(message.text === 'Hi') {
         let tempStickerMessage: StickerMessage = {
             type: 'sticker',
             sticker_group: '75',
@@ -36,6 +48,10 @@ bot.on('message', async (message: ReceivedMessage) => {
         // 回覆貼圖訊息
         message.replySticker(tempStickerMessage);
     }
+
+    // 使用前面設置的exampleMessageTrigger檢查訊息
+    // 若符合條件會接著執行exampleMessageTrigger.action
+    exampleMessageTrigger.checkAndRun(message);
 });
 
 const PORT = process.env.PORT || 1337;
