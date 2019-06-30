@@ -7,9 +7,10 @@
  - 在 environment.ts 中填入哈哈姆特的token與ssl相關檔案
  ```js
  export const environment = {
-    keys: {
-        accessToken: "填入哈哈姆特Bot Access Token",
-        appSecret: "填入哈哈姆特Bot AppSecret"
+    configs: {
+        botId: "填入哈哈姆特BotID"
+        accessToken: "填入哈哈姆特Bot accessToken",
+        appSecret: "填入哈哈姆特Bot appSecret"
     },
     sslOptions: {
         key: fs.readFileSync('./private.key'),
