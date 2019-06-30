@@ -5,7 +5,7 @@ import { environment } from './environment';
 
 // 需使用ssl才能正常接收哈哈姆特webhook事件
 // 但這邊為方便在本機測試，不傳入ssl options也不開啟驗證signature
-const bot: HahamutBot = new HahamutBot(environment.config, null, '/yourprefix', false);
+const bot: HahamutBot = new HahamutBot(environment.configs, null, '/yourprefix', false);
 
 // 增加機器人指令
 bot.addCommand('say', async (message: ReceivedMessage, ...args: any[]) => {

@@ -1,7 +1,7 @@
 import fs from 'fs'
 
 export const environment = {
-    config: {
+    configs: {
         botId: 'your botId',
         accessToken: "your accessToken",
         appSecret: "your appSecret"
